@@ -11,7 +11,7 @@ import plotly.graph_objects as go
 
 # Page configuration
 st.set_page_config(
-    page_title="Diabetes Risk Assessment Suite",
+    page_title="Diabetes Risk Assessment App",
     page_icon="🏥",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -636,24 +636,24 @@ def prediction_app():
 
     # Demographics
     st.markdown("**Demographic Information**")
-    age = st.slider("Age", min_value=1, max_value=100, value=45)
+    age = st.slider("Age", min_value=18, max_value=80, value=45)
     gender = st.radio("Gender", options=list(Gender_Code.values()), horizontal=True)
     race = st.selectbox("Race/Ethnicity", options=list(Race_Code.values()))
     education = st.selectbox("Education Level", options=list(Education_Code_Imputed.values()))
-    income = st.number_input("Annual Income ($)", min_value=2500, max_value=100000, value=50000, step=1000)
+    income = st.number_input("Annual Income ($)", min_value=2500, max_value=100000, value=50000, step=500)
 
     # Clinical measurements
     st.markdown("**Clinical Measurements**")
     col1, col2 = st.columns(2)
     with col1:
-        bmi = st.slider("BMI", min_value=10.0, max_value=85.0, value=25.0, step=0.1)
+        bmi = st.slider("BMI", min_value=10.5, max_value=83.0, value=25.0, step=0.1)
         waist_circumference = st.slider("Waist Circumference (cm)", min_value=40.0, max_value=180.0, value=90.0)
         systolic_bp = st.slider("Systolic BP (mmHg)", min_value=65, max_value=230, value=120)
     with col2:
-        diastolic_bp = st.slider("Diastolic BP (mmHg)", min_value=0, max_value=130, value=80)
-        glucose = st.slider("Glucose Level (mg/dL)", min_value=40, max_value=610, value=100)
-        hdl = st.slider("HDL Level (mg/dL)", min_value=10, max_value=125, value=50)
-        triglycerides = st.slider("Triglycerides Level (mg/dL)", min_value=10, max_value=4250, value=150)
+        diastolic_bp = st.slider("Diastolic BP (mmHg)", min_value=0, max_value=125, value=80)
+        glucose = st.slider("Glucose Level (mg/dL)", min_value=40, max_value=605, value=100)
+        hdl = st.slider("HDL Level (mg/dL)", min_value=10, max_value=175, value=50)
+        triglycerides = st.slider("Triglycerides Level (mg/dL)", min_value=10, max_value=4235, value=150)
 
     # Risk factors
     st.markdown("**Risk Factors**")
@@ -722,7 +722,7 @@ def prediction_app():
 
         # Screening result
         st.markdown(f'<div class="result-box screening-box">', unsafe_allow_html=True)
-        st.markdown("##### Screening Result (High Recall)")
+        st.markdown("##### Screening Result")
         if probability >= SCREENING_THRESHOLD:
             st.markdown('<p class="positive-result">SCREENING POSITIVE</p>', unsafe_allow_html=True)
             st.markdown(f"*Probability ({probability_percent:.1f}%) ≥ Screening Threshold ({SCREENING_THRESHOLD*100:.0f}%)*")
@@ -735,7 +735,7 @@ def prediction_app():
 
         # Diagnostic result
         st.markdown(f'<div class="result-box diagnostic-box">', unsafe_allow_html=True)
-        st.markdown("##### Diagnostic Result (High Precision)")
+        st.markdown("##### Diagnostic Result")
         if probability >= DIAGNOSTIC_THRESHOLD:
             st.markdown('<p class="positive-result">DIAGNOSTIC POSITIVE</p>', unsafe_allow_html=True)
             st.markdown(f"*Probability ({probability_percent:.1f}%) ≥ Diagnostic Threshold ({DIAGNOSTIC_THRESHOLD*100:.0f}%)*")
@@ -872,3 +872,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
