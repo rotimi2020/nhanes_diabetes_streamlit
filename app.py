@@ -636,7 +636,7 @@ def prediction_app():
 
     # Demographics
     st.markdown("**Demographic Information**")
-    age = st.slider("Age", min_value=18, max_value=80, value=45)
+    age = st.slider("Age", min_value=1, max_value=80, value=45)
     gender = st.radio("Gender", options=list(Gender_Code.values()), horizontal=True)
     race = st.selectbox("Race/Ethnicity", options=list(Race_Code.values()))
     education = st.selectbox("Education Level", options=list(Education_Code_Imputed.values()))
@@ -872,4 +872,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
